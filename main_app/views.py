@@ -18,11 +18,20 @@ def shoes_index(request):
 
 def shoes_detail(request, shoe_id):
   shoe = Shoe.objects.get(id=shoe_id)
+  # Get the marketplaces the shoe doesn't have
+  print(Shoe.objects.get(id=shoe_id).marketplaces.all())
+  marketplaces_shoe_doesnt_have = Marketplace.objects.exclude(id__in = shoe.marketplaces.all().values_list('id'))
+  print(marketplaces_shoe_doesnt_have.count())
   cleaning_form = CleaningForm()
   return render(request, 'shoes/detail.html', {
     'shoe': shoe,
-    'cleaning_form': cleaning_form
+    'cleaning_form': cleaning_form,
+    'marketplaces': marketplaces_shoe_doesnt_have
   })
+
+def assoc_marketplace(request, shoe_id, marketplace_id):
+  Shoe.objects.get(id=shoe_id).marketplaces.add(marketplace_id)
+  return redirect('detail', shoe_id=shoe_id)
 
 def add_cleaning(request, shoe_id):
   form = CleaningForm(request.POST)
