@@ -16,4 +16,6 @@ urlpatterns = [
   path('marketplaces/<int:pk>/update/', views.MarketplaceUpdate.as_view(), name='marketplaces_update'),
   path('marketplaces/<int:pk>/delete/', views.MarketplaceDelete.as_view(), name='marketplaces_delete'),
   path('shoes/<int:shoe_id>/assoc_marketplace/<int:marketplace_id>/', views.assoc_marketplace, name='assoc_marketplace'),
+  path('shoes/<int:shoe_id>/unassoc_marketplace/<int:marketplace_id>/', views.unassoc_marketplace, name='unassoc_marketplace'),
+
 ]

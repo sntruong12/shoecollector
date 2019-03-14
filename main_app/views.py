@@ -33,6 +33,10 @@ def assoc_marketplace(request, shoe_id, marketplace_id):
   Shoe.objects.get(id=shoe_id).marketplaces.add(marketplace_id)
   return redirect('detail', shoe_id=shoe_id)
 
+def unassoc_marketplace(request, shoe_id, marketplace_id):
+  Shoe.objects.get(id=shoe_id).marketplaces.remove(marketplace_id)
+  return redirect('detail', shoe_id=shoe_id)
+
 def add_cleaning(request, shoe_id):
   form = CleaningForm(request.POST)
 
