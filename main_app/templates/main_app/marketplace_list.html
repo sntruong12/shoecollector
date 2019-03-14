@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Marketplace List</h1>
+
+{% for marketplace in marketplace_list %}
+  <a href="{% url 'marketplaces_detail' marketplace.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ marketplace.name }}</span>
+            <img src="{{ marketplace.image_url }}" alt="" width="250px">
+        </div>
+    </div>
+  </a>
+{% endfor %}
+
+{% endblock %}
