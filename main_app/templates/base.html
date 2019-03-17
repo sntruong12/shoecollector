@@ -20,10 +20,16 @@
                 </ul>
                 <ul class="right">
                     <li><a href="{% url 'about' %}">About</a></li>
-                    <li><a href="{% url 'marketplaces_index' %}">View All Marketplaces</a></li>
-                    <li><a href="{% url 'marketplaces_create' %}">Add a Marketplace</a></li>
-                    <li><a href="{% url 'shoes_create' %}">Add a Sneaker</a></li>
-                    <li><a href="{% url 'index' %}">View All My Kicks</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'marketplaces_index' %}">All Marketplaces</a></li>
+                        <li><a href="{% url 'marketplaces_create' %}">Add Marketplace</a></li>
+                        <li><a href="{% url 'shoes_create' %}">Add Sneaker</a></li>
+                        <li><a href="{% url 'index' %}">Collection</a></li>
+                        <li><a href="{% url 'logout' %}">Log Out</a></li>
+                    {% else %}
+                        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                      <li><a href="{% url 'login' %}">Log In</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

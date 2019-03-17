@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.core.validators import MinValueValidator 
+from django.contrib.auth.models import User
 import datetime
 
 CLEAN_STATE = (
@@ -27,6 +28,7 @@ class Shoe(models.Model):
   release = models.IntegerField()
   description = models.TextField(max_length=280)
   marketplaces = models.ManyToManyField(Marketplace)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def __str__(self):
     return self.name
@@ -41,6 +43,9 @@ class Shoe(models.Model):
     days = delta.days
 
     return True if days > 30 else False
+
+  def no_cleaning_check(self):
+    return self.cleaning_set.all().count()
 
 class Cleaning(models.Model):
   date = models.DateField('date of last cleaning')

@@ -41,24 +41,29 @@
       <input type="submit" class="btn" value="Add New Cleaning">
     </form>
     <br>
-    {% if shoe.cleaned_in_past_30_days %}
-      <div class="card-panel red-text center-align">Yo kicks are dirty</div>
+    
+    {% if shoe.no_cleaning_check %}
+      {% if shoe.cleaned_in_past_30_days %}
+        <div class="card-panel red-text center-align">Yo kicks are dirty</div>
+      {% else %}
+        <div class="card-panel teal-text center-align">Yo kicks are in a clean condition</div>
+      {% endif %}
+      <table class="striped">
+        <thead>
+          <tr><th>Date</th><th>Clean?</th></tr>
+        </thead>
+        <tbody>
+          {% for cleaning in shoe.cleaning_set.all %}
+            <tr>
+              <td>{{ cleaning.date }}</td>
+              <td>{{ cleaning.get_state_display }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     {% else %}
-      <div class="card-panel teal-text center-align">Yo kicks are in a clean condition</div>
+      <div class="card-panel teal-text center-align">No recorded cleanings</div>
     {% endif %}
-    <table class="striped">
-      <thead>
-        <tr><th>Date</th><th>Clean?</th></tr>
-      </thead>
-      <tbody>
-        {% for cleaning in shoe.cleaning_set.all %}
-          <tr>
-            <td>{{ cleaning.date }}</td>
-            <td>{{ cleaning.get_state_display }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
   </div>
 </div>
 
